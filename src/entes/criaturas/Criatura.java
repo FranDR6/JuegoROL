@@ -2,13 +2,13 @@ package entes.criaturas;
 
 import entes.Ente;
 import graficos.Sprite;
+import mapa.cuadro.Cuadro;
 
 public abstract class Criatura extends Ente {
 
 	protected Sprite sprite;
 	protected char direccion = 'n';
 	protected boolean enMovimiento = false;
-	
 
 	public void actualizar() {
 
@@ -33,15 +33,48 @@ public abstract class Criatura extends Ente {
 			direccion = 'n';
 		}
 		if (!estaEliminado()) {
-			modificarX(desplazamientoX);
-			modificarY(desplazamientoY);
+			if (!enColision(desplazamientoX, 0)) {
+				modificarX(desplazamientoX);
+			}
+			if (!enColision(0, desplazamientoY)) {
+				modificarY(desplazamientoY);
+			}
 		}
 	}
 
-	public boolean enColision() {
-		return false;
+	public boolean enColision(int desplazamientoX, int desplazamientoY) {
+
+		boolean colision = false;
+
+		int posicionX = x + desplazamientoX;
+		int posicionY = y + desplazamientoY;
+
+		int margenIzquierdo = 10;
+		int margenDerecho = 10;
+		int margenSuperior = 5;
+		int margenInferior = 15;
+
+		int borderIzquierdo = (posicionX + margenDerecho) / sprite.getLado();
+		int borderDerecho = (posicionX + margenDerecho + margenIzquierdo) / sprite.getLado();
+		int borderSuperior = (posicionY + margenInferior) / sprite.getLado();
+		int borderInferior = (posicionY + margenInferior + margenSuperior) / sprite.getLado();
+
+		if (mapa.getCuadrosCatalogo(borderIzquierdo + borderSuperior * mapa.getAncho()).esSolido()) {
+			colision = true;
+		}
+		if (mapa.getCuadrosCatalogo(borderIzquierdo + borderInferior * mapa.getAncho()).esSolido()) {
+			colision = true;
+		}
+		if (mapa.getCuadrosCatalogo(borderDerecho + borderInferior * mapa.getAncho()).esSolido()) {
+			colision = true;
+		}
+		if (mapa.getCuadrosCatalogo(borderDerecho + borderInferior * mapa.getAncho()).esSolido()) {
+			colision = true;
+		}
+
+		return colision;
 	}
-	
+
 	public Sprite obtenSprite() {
 		return sprite;
 	}

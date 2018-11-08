@@ -74,4 +74,15 @@ public abstract class Mapa {
 			return Cuadro.VACIO;
 		}
 	}
+
+	public Cuadro getCuadrosCatalogo(int posicion) {
+		return cuadrosCatalogo[posicion];
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
+	
+	
+
 }
