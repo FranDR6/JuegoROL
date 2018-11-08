@@ -12,7 +12,9 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import control.Teclado;
+import entes.criaturas.Jugador;
 import graficos.Pantalla;
+import graficos.Sprite;
 import mapa.Mapa;
 import mapa.MapaCargado;
 
@@ -33,18 +35,21 @@ public class Juego extends Canvas implements Runnable {
 	private static int aps = 0;
 	private static int fps = 0;
 
-	private static int x = 0;
-	private static int y = 0;
-
 	private static JFrame ventana;
 	private static Thread thread;
 	private static Teclado teclado;
 	private static Pantalla pantalla;
-
 	private static Mapa mapa;
+	private static Jugador jugador;
 
 	private static BufferedImage imagen = new BufferedImage(ANCHO, ALTO, BufferedImage.TYPE_INT_RGB);
 	private static int[] pixeles = ((DataBufferInt) imagen.getRaster().getDataBuffer()).getData();
+
+	// EJECUTABLE 51
+	public static void main(String[] args) {
+		Juego juego = new Juego();
+		juego.iniciar();
+	}
 
 	private Juego() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
@@ -52,10 +57,12 @@ public class Juego extends Canvas implements Runnable {
 		pantalla = new Pantalla(ANCHO, ALTO);
 
 //		mapa = new MapaGenerado(40, 40);
-		mapa = new MapaCargado("../mapa/Mapa1.png");
 
 		teclado = new Teclado();
 		addKeyListener(teclado);
+
+		jugador = new Jugador(teclado, Sprite.DERECHA1, 600, 300);
+		mapa = new MapaCargado("../mapa/Mapa1.png");
 
 		ventana = new JFrame(NOMBRE);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,12 +74,6 @@ public class Juego extends Canvas implements Runnable {
 		ventana.setLocationRelativeTo(null);
 		ventana.setVisible(true);
 
-	}
-
-	// 45 8:42
-	public static void main(String[] args) {
-		Juego juego = new Juego();
-		juego.iniciar();
 	}
 
 	public void run() {
@@ -114,19 +115,8 @@ public class Juego extends Canvas implements Runnable {
 
 	private void actualizar() {
 		teclado.actualizar();
+		jugador.actualizar();
 
-		if (teclado.arriba) {
-			y--;
-		}
-		if (teclado.abajo) {
-			y++;
-		}
-		if (teclado.izquierda) {
-			x--;
-		}
-		if (teclado.derecha) {
-			x++;
-		}
 		if (teclado.salir) {
 			System.exit(0);
 		}
@@ -141,18 +131,18 @@ public class Juego extends Canvas implements Runnable {
 			return;
 		}
 
-//		pantalla.limpiar();
-		mapa.mostrar(x, y, pantalla);
+		mapa.mostrar(jugador.obtenX() - pantalla.getAncho() / 2 + jugador.obtenSprite().getLado() / 2,
+				jugador.obtenY() - pantalla.getAlto() / 2 + jugador.obtenSprite().getLado() / 2, pantalla);
+		jugador.mostrar(pantalla);
 
 		System.arraycopy(pantalla.pixeles, 0, pixeles, 0, pixeles.length);
 		Graphics g = estrategy.getDrawGraphics();
 
 		g.drawImage(imagen, 0, 0, getWidth(), getHeight(), null);
-		g.setColor(Color.WHITE);
-		g.fillOval(ANCHO / 2, ALTO / 2, 32, 32);
-//		g.fillRect(ANCHO / 2, ALTO / 2, 32, 32);
+		g.setColor(Color.RED);
 		g.drawString(CONTADOR_APS, 10, 20);
 		g.drawString(CONTADOR_FPS, 10, 35);
+		g.drawString("Y -> " + String.valueOf(jugador.obtenY() + " X-> " + String.valueOf(jugador.obtenX())), 10, 50);
 		g.dispose();
 
 		estrategy.show();
@@ -162,19 +152,16 @@ public class Juego extends Canvas implements Runnable {
 
 	private synchronized void iniciar() {
 		enFuncionamiento = true;
-
 		thread = new Thread(this, "Graficos");
 		thread.start();
 	}
 
 	private synchronized void detener() {
 		enFuncionamiento = false;
-
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

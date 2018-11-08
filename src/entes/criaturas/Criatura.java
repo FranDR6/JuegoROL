@@ -8,6 +8,7 @@ public abstract class Criatura extends Ente {
 	protected Sprite sprite;
 	protected char direccion = 'n';
 	protected boolean enMovimiento = false;
+	
 
 	public void actualizar() {
 
@@ -39,6 +40,10 @@ public abstract class Criatura extends Ente {
 
 	public boolean enColision() {
 		return false;
+	}
+	
+	public Sprite obtenSprite() {
+		return sprite;
 	}
 
 }

@@ -1,5 +1,6 @@
 package graficos;
 
+import entes.criaturas.Jugador;
 import mapa.cuadro.Cuadro;
 
 public final class Pantalla {
@@ -38,9 +39,40 @@ public final class Pantalla {
 				if (posicionX < 0) {
 					posicionX = 0;
 				}
-				
+
 				try {
 					pixeles[posicionX + posicionY * ancho] = cuadro.sprite.pixeles[x + y * cuadro.sprite.getLado()];
+				} catch (Exception e) {
+				}
+
+			}
+		}
+	}
+
+	public void mostrarJugador(int compensacionX, int compensacionY, Jugador jugador) {
+		compensacionX -= diferenciaX;
+		compensacionY -= diferenciaY;
+
+		for (int y = 0; y < jugador.obtenSprite().getLado(); y++) {
+			int posicionY = y + compensacionY;
+			for (int x = 0; x < jugador.obtenSprite().getLado(); x++) {
+				int posicionX = x + compensacionX;
+				if (posicionX < -jugador.obtenSprite().getLado() || posicionX > ancho || posicionY < 0
+						|| posicionY > alto) {
+					break;
+				}
+				if (posicionX < 0) {
+					posicionX = 0;
+				}
+
+				try {
+//					pixeles[posicionX + posicionY * ancho] = jugador.obtenSprite().pixeles[x
+//							+ y * jugador.obtenSprite().getLado()];
+
+					int colorPixelJugador = jugador.obtenSprite().pixeles[x + y * jugador.obtenSprite().getLado()];
+					if (colorPixelJugador != 0xff0026FF) {
+						pixeles[posicionX + posicionY * ancho] = colorPixelJugador;
+					}
 				} catch (Exception e) {
 				}
 

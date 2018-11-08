@@ -9,7 +9,7 @@ public class Sprite {
 	public int[] pixeles;
 	private HojaSprites hoja;
 
-	// ---------------------------
+	// Sprites terreno
 	public static final Sprite VACIO = new Sprite(32, 0);
 
 	public static final Sprite HIERBA = new Sprite(32, 8, 3, HojaSprites.HojaTile);
@@ -34,7 +34,16 @@ public class Sprite {
 	public static final Sprite BOSQUE_ABAJO_IZQUIERDA = new Sprite(32, 3, 1, HojaSprites.HojaTile);
 	public static final Sprite BOSQUE_ABAJO_DERECHA = new Sprite(32, 4, 1, HojaSprites.HojaTile);
 
-	// ---------------------------
+	// Sprite Personajes
+	public static final Sprite DERECHA1 = new Sprite(32, 0, 0, HojaSprites.HojaJugador);
+	public static final Sprite DERECHA2 = new Sprite(32, 0, 1, HojaSprites.HojaJugador);
+	public static final Sprite DERECHA3 = new Sprite(32, 0, 2, HojaSprites.HojaJugador);
+	public static final Sprite DERECHA4 = new Sprite(32, 0, 3, HojaSprites.HojaJugador);
+
+	public static final Sprite IZQUIERDA1 = new Sprite(32, 1, 0, HojaSprites.HojaJugador);
+	public static final Sprite IZQUIERDA2 = new Sprite(32, 1, 1, HojaSprites.HojaJugador);
+	public static final Sprite IZQUIERDA3 = new Sprite(32, 1, 2, HojaSprites.HojaJugador);
+	public static final Sprite IZQUIERDA4 = new Sprite(32, 1, 3, HojaSprites.HojaJugador);
 
 	public Sprite(final int lado, final int columna, final int fila, final HojaSprites hoja) {
 		this.lado = lado;
