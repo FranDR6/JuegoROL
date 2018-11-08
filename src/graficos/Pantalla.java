@@ -70,7 +70,7 @@ public final class Pantalla {
 //							+ y * jugador.obtenSprite().getLado()];
 
 					int colorPixelJugador = jugador.obtenSprite().pixeles[x + y * jugador.obtenSprite().getLado()];
-					if (colorPixelJugador != 0xff0026FF) {
+					if (colorPixelJugador != 0xffff00ff) {
 						pixeles[posicionX + posicionY * ancho] = colorPixelJugador;
 					}
 				} catch (Exception e) {

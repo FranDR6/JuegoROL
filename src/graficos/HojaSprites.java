@@ -12,7 +12,7 @@ public class HojaSprites {
 
 	// ---------------------------
 	public static HojaSprites HojaTile = new HojaSprites("../texturas/HojaTile.png", 1024, 1024);
-	public static HojaSprites HojaJugador = new HojaSprites("../texturas/Personaje.png", 320, 320);
+	public static HojaSprites HojaJugador = new HojaSprites("../texturas/Personaje1.png", 96, 128);
 
 	// ---------------------------
 

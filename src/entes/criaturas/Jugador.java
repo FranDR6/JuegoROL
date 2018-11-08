@@ -61,15 +61,15 @@ public class Jugador extends Criatura {
 		}
 
 		if (direccion == 'n') {
-			sprite = sprite.DERECHA1;
+			sprite = sprite.ARRIBA1;
 			if (enMovimiento) {
 				int resto = animacion % 30;
 				if (resto > 15 && resto <= 20) {
-					sprite = sprite.DERECHA2;
+					sprite = sprite.ARRIBA2;
 				} else if (resto > 20) {
-					sprite = sprite.DERECHA3;
+					sprite = sprite.ARRIBA3;
 				} else {
-					sprite = sprite.DERECHA4;
+					sprite = sprite.ARRIBA2;
 				}
 			}
 		}
@@ -82,20 +82,20 @@ public class Jugador extends Criatura {
 				} else if (resto > 20) {
 					sprite = sprite.DERECHA3;
 				} else {
-					sprite = sprite.DERECHA4;
+					sprite = sprite.DERECHA2;
 				}
 			}
 		}
 		if (direccion == 's') {
-			sprite = sprite.IZQUIERDA1;
+			sprite = sprite.ABAJO1;
 			if (enMovimiento) {
 				int resto = animacion % 30;
 				if (resto > 15 && resto <= 20) {
-					sprite = sprite.IZQUIERDA2;
+					sprite = sprite.ABAJO2;
 				} else if (resto > 20) {
-					sprite = sprite.IZQUIERDA3;
+					sprite = sprite.ABAJO3;
 				} else {
-					sprite = sprite.IZQUIERDA4;
+					sprite = sprite.ABAJO2;
 				}
 			}
 		}
@@ -108,7 +108,7 @@ public class Jugador extends Criatura {
 				} else if (resto > 20) {
 					sprite = sprite.IZQUIERDA3;
 				} else {
-					sprite = sprite.IZQUIERDA4;
+					sprite = sprite.IZQUIERDA2;
 				}
 			}
 		}
